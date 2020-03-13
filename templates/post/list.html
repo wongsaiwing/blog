@@ -14,7 +14,7 @@
         {% for post in posts %}
         <!-- Post content -->
         <div class="col-4 mb-4">
-        <!-- card container -->
+        <!-- card container to display each post -->
             <div class="card h-100">
 
                 <!-- Title -->
@@ -28,7 +28,8 @@
 
                 <!-- Footer -->
                 <div class="card-footer">
-                    <a href="#" class="btn btn-primary">Read it</a>
+                <!-- goto the post detail when the 'Read it' buttom is clicked -->
+                    <a href="{% url 'post:post_detail' post.id %}" class="btn btn-primary">Read it</a>
 
                 </div>
             </div>

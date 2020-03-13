@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+    Post detail
+{% endblock title %}
+
+{% block content %}
+<!-- post detail -->
+<div class="container">
+    <div class="row">
+
+    <!-- title && author -->
+    <h1 class="col-12 mt-4 mb-4"> {{post.title}}  </h1>
+    <div class="col-12 alert alert-success"> Author: {{post.author}} </div>
+
+    <!-- post content -->
+        <div class="col-12">
+            <p>{{post.body}}</p>
+        </div>
+    </div>
+</div>
+{% endblock content %}
