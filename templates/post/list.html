@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+<!-- Home -->
+{% block title %}
+    Home
+{% endblock title %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row mt-2">
+
+        {% for post in posts %}
+        <!-- Post content -->
+        <div class="col-4 mb-4">
+        <!-- card container -->
+            <div class="card h-100">
+
+                <!-- Title -->
+
+                <h4 class="card-header">{{ post.title }}</h4>
+                <!-- Summary -->
+
+                <div class="card-body">
+                    <p class="card-text">{{ post.body|slice:'50' }}...</p>
+                </div>
+
+                <!-- Footer -->
+                <div class="card-footer">
+                    <a href="#" class="btn btn-primary">Read it</a>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock content %}

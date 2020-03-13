@@ -1,0 +1,29 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+
+<html lang="en-GB">
+
+<head>
+
+    <meta charset="utf-8">
+    <!-- Title -->
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+</head>
+
+<body>
+
+    <!-- Header -->
+    {% include 'header.html' %}
+    {% block content %}{% endblock content %}
+
+    <!-- Footer -->
+    {% include 'footer.html' %}
+    <script src="{% static 'jquery/jquery-3.4.1.js' %}"></script> 
+    <script src="{% static 'popper/popper-1.14.4.js' %}"></script>
+      
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+</body>
+
+</html>
