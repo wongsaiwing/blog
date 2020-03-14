@@ -1,3 +1,3 @@
 # Blog
 ---
-** WAD2 team project**
+WAD2 team project
