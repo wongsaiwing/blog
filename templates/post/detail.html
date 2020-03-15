@@ -12,12 +12,36 @@
 
     <!-- title && author -->
     <h1 class="col-12 mt-4 mb-4"> {{post.title}}  </h1>
-    <div class="col-12 alert alert-success"> Author: {{post.author}} </div>
+
+    <div class="col-12 alert alert-success"> Author: {{post.author}}
+        {% comment %} <a href="#" onclick="delete()"> Delete post </a> {% endcomment %}
+        <a href="{% url "post:post_update" post.id %}"> Edit </a>
+    </div>
 
     <!-- post content -->
         <div class="col-12">
             <p>{{post.body|safe}}</p>
         </div>
+
     </div>
 </div>
+
+{% comment %} 
+<!-- delete post -->
+<script>
+    function delete() {
+        // use the layer plugin 
+        // to confirm the Delete post buttom would not be misclicked
+        layer.open({
+            title: "Deleting post",
+            content: "confirm delete?",
+            // goto delete if yes is clicked
+            yes: function(index, layero){
+                location.href='{% url "post:post_delete" post.id %}'
+            },
+        })
+    }
+</script> 
+{% endcomment %}
+
 {% endblock content %}

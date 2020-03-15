@@ -8,7 +8,11 @@
         <li class="nav-item">
         
         <!-- back to Home page when 'Posts' buttom is clicked-->
-          <a class="nav-link" href="{% url 'post:post_list' %}">Posts</a>
+          <a class="nav-link" href="{% url 'post:post_list' %}">Posts list</a>
+        </li>
+        
+        <li>
+          <a class="nav-link" href="{% url 'post:post_create' %}">Publish a post</a> 
         </li>
       </ul>
     </div>
