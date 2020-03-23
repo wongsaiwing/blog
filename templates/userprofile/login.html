@@ -9,6 +9,9 @@
         <div class="row">
             <div class="col-12">
                 <br>
+                <h5> Dont have account?    <a href='{% url "userprofile:register" %}'> Register</a></h5>
+
+                <br>
                 <form method="post" action=".">
                     {% csrf_token %}
 
