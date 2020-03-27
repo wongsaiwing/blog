@@ -21,6 +21,7 @@
               {{ user.username }}
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href='{% url "userprofile:edit" user.id %}'> Information </a>
                 <a class="dropdown-item" href='{% url "userprofile:logout" %}'> Logout </a>
                 <a class="dropdown-item" href="#" onclick="user_delete()"> Delete account</a>
               </div>

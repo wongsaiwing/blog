@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .forms import PostForm
 from .models import Post
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 import markdown
 # Create your views here.
@@ -25,6 +26,7 @@ def post_detail(request, id):
     context = {'post':post}
     return render(request, 'post/detail.html', context)
 
+@login_required(login_url='/userprofile/login/')
 def post_create(request):
     # determine whether the user want to publish a post
     if request.method == "POST":
@@ -32,7 +34,7 @@ def post_create(request):
 
         if post_form.is_valid():
             new_post = post_form.save(commit=False)
-            new_post.author = User.objects.get(id=1)
+            new_post.author = User.objects.get(id=request.user.id)
             new_post.save()
             return redirect("post:post_list")
         else:

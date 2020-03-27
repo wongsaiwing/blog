@@ -133,5 +133,7 @@ EMAIL_HOST_PASSWORD = '35665900'
 EMAIL_PORT =  587
 # TLS
 EMAIL_USE_TLS = True
-
 DEFAULT_FROM_EMAIL = 'WAD2_Blog <hps4e30@gmail.com>'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')

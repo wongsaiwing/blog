@@ -4,6 +4,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from .forms import UserLoginForm, UserRegisterForm
+from .forms import ProfileForm
+from .models import Profile
 # Create your views here.
 
 def user_login(request):
@@ -73,3 +75,41 @@ def user_delete(request, id):
             return HttpResponse("You don't have permision")
     else:
         return HttpResponse("POST only")
+
+@login_required(login_url='/userprofile/login/')
+def profile_edit(request, id):
+    user = User.objects.get(id=id) 
+
+    if Profile.objects.filter(user_id=id).exists():
+        profile = Profile.objects.get(user_id=id)
+    else:
+        profile = Profile.objects.create(user=user)
+
+    if request.method == 'POST':
+        # verify
+        if request.user != user:
+            return HttpResponse("You don't have permision")
+
+        profile_form = ProfileForm(request.POST, request.FILES)
+
+        if profile_form.is_valid():
+
+            profile_cd = profile_form.cleaned_data
+            profile.phone = profile_cd['phone']
+            profile.bio = profile_cd['bio']
+
+            if 'avatar' in request.FILES:
+                profile.avatar = profile_cd["avatar"]
+
+            profile.save()
+
+            return redirect("userprofile:edit", id=id)
+        else:
+            return HttpResponse("Invalid form, please retry")
+
+    elif request.method == 'GET':
+        profile_form = ProfileForm()
+        context = { 'profile_form': profile_form, 'profile': profile, 'user': user }
+        return render(request, 'userprofile/edit.html', context)
+    else:
+        return HttpResponse("GET or POST")
