@@ -45,12 +45,12 @@ def post_create(request):
 
         return render(request, 'post/create.html', context)
 
-# def post_delete(request, id):
-#     # delete post by its id
-#     # then back to the post list
-#     post = Post.objects.get(id=id)
-#     post.delete()
-#     return redirect("post:post_list")
+def post_delete(request, id):
+    # delete post by its id
+    # then back to the post list
+    post = Post.objects.get(id=id)
+    post.delete()
+    return redirect("post:post_list")
 
     # update a post
 def post_update(request, id):
