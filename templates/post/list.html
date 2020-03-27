@@ -9,6 +9,48 @@
 {% block content %}
 
 <div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{% url 'post:post_list' %}?search={{ search }}">
+                    Hot posts
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{% url 'post:post_list' %}?order=total_views&search={{ search }}">
+                    Latest posts
+                </a>
+            </li>
+        </ol>
+    </nav>
+
+    <!-- search bar -->
+    <div class="row">
+        <div class="col-auto mr-auto">
+            <form class="form-inline" >
+                <label class="sr-only">content</label>
+                <input type="text" 
+                    class="form-control mb-2 mr-sm-2" 
+                    name="search" 
+                    placeholder="Searching..." 
+                    required
+                >
+            </form>
+        </div>
+    </div>
+
+    <!-- search hints -->
+    {% if search %}
+        {% if posts %}
+            <h4><span style="color: red">"{{ search }}"</span>Search results"</h4>
+            <hr>        
+        {% else %}
+            <h4>No<span style="color: red">"{{ search }}"</span>posts.</h4>
+            <hr>
+        {% endif %}
+    {% endif %}
+    
     <div class="row mt-2">
 
         {% for post in posts %}
@@ -30,12 +72,49 @@
                 <div class="card-footer">
                 <!-- goto the post detail when the 'Read it' buttom is clicked -->
                     <a href="{% url 'post:post_detail' post.id %}" class="btn btn-primary">Read it</a>
-
+                <!-- views count -->
+                <span>
+                    <small class="col align-self-end" style="color: gray;"> views: {{ post.total_views }}</small>
+                </span>
                 </div>
             </div>
         </div>
         {% endfor %}
 
     </div>
+
+    <div class="pagination row">
+        <div class="m-auto">
+            <span class="step-links">
+                <!-- previous page if not first page -->
+                {% if posts.has_previous %}
+                    <a href="?page=1 &order={{ order }} &search={{ search }}" class="btn btn-success">
+                    <span>...</span>
+
+                    <a href="?page={{ posts.previous_page_number }}&order={{ order }}&search={{ search }}" 
+                    class="btn btn-secondary">
+                    </a>
+                {% endif %}
+
+                <!-- current page -->
+                <span class="current btn btn-danger btn-lg">
+                    {{ posts.number }}
+                </span>
+
+                <!-- next page if not last page -->
+                {% if posts.has_next %}
+                    <a href="?page={{ posts.next_page_number }}&order={{ order }}&search={{ search }}" 
+                    class="btn btn-secondary">
+                    </a>
+                    <span>...</span>
+
+                    <a href="?page={{ posts.paginator.num_pages }}&order={{ order }}&search={{ search }}"
+                    class="btn btn-success">
+                    </a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+
 </div>
 {% endblock content %}

@@ -13,9 +13,12 @@ class Post(models.Model):
     created_time = models.DateTimeField(default = timezone.now)
     update_time = models.DateTimeField(auto_now=True)
 
+    total_views = models.PositiveIntegerField(default=0)
+
     ## latest posts on top
     class Meta:
         ordering = ('-created_time', )
 
     def __str__(self):
         return self.title
+

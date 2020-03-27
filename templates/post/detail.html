@@ -13,10 +13,18 @@
     <!-- title && author -->
     <h1 class="col-12 mt-4 mb-4"> {{post.title}}  </h1>
 
-    <div class="col-12 alert alert-success"> Author: {{post.author}}
-        <a href="#" onclick="confirm_delete()"> Delete post </a>
-        <a href="{% url "post:post_update" post.id %}"> Edit </a>
-    </div>
+        <div class="col-12 alert alert-success">
+            <div>
+                Author: {{ post.author }}
+                {% if user == post.author %}
+                    <a href="#" onclick="confirm_delete()"> Delete post </a>
+                    <a href="{% url "post:post_update" post.id %}"> | Edit post </a>
+                {% endif %}
+            </div>
+            <div>
+                views: {{ post.total_views }}
+            </div>
+        </div>
 
     <!-- post content -->
         <div class="col-12">

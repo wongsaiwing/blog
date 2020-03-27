@@ -8,20 +8,19 @@
         <li class="nav-item">
         
         <!-- back to Home page when 'Posts' buttom is clicked-->
-          <a class="nav-link" href="{% url 'post:post_list' %}">Posts</a>
-        </li>
-        
-        <li>
-          <a class="nav-link" href="{% url 'post:post_create' %}">Publish a post</a> 
+          <a class="nav-link" href="{% url 'post:post_list' %}">Posts| </a>
         </li>
 
         {% if user.is_authenticated %}
+        <!-- dropdown menu if user logined-->
             <li class="nav-item dropdown">
               <a class=:"nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               {{ user.username }}
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
                 <a class="dropdown-item" href='{% url "userprofile:edit" user.id %}'> Information </a>
+                <a class="dropdown-item" href='{% url "post:post_create" %}'> Publish a post </a> 
                 <a class="dropdown-item" href='{% url "userprofile:logout" %}'> Logout </a>
                 <a class="dropdown-item" href="#" onclick="user_delete()"> Delete account</a>
               </div>
