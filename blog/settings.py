@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'post',
     'userprofile',
+    'password_reset',
 ]
 
 MIDDLEWARE = [
@@ -123,3 +124,14 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+# SMTP
+EMAIL_HOST = 'smtp.gmail.com'
+# My email
+EMAIL_HOST_USER = 'hps4e30@gmail.com'
+EMAIL_HOST_PASSWORD = '35665900'
+# TSL PORT
+EMAIL_PORT =  587
+# TLS
+EMAIL_USE_TLS = True
+
+DEFAULT_FROM_EMAIL = 'WAD2_Blog <hps4e30@gmail.com>'
