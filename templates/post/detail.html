@@ -36,7 +36,57 @@
         <div class="col-12">
             <p>{{post.body|safe}}</p>
         </div>
+<hr>
+    {% if user.is_authenticated %}
+        <div>
+            <form 
+                action="{% url 'comment:post_comment' post.id %}" 
+                method="POST"
+            >
+            {% csrf_token %}
+                <div class="form-group">
+                    <label for="body">
+                        <strong>
+                            Comments:
+                        </strong>
+                    </label>
+                    <textarea 
+                        type="text" 
+                        class="form-control" 
+                        id="body" 
+                        name="body" 
+                        rows="2"></textarea>
+                </div>
+                <!-- submit button-->
+                <button type="submit" class="btn btn-primary "> send </button> <br>                   
+            </form>
+        </div>
 
+    {% else %}
+        <br>
+        <h5 class="row justify-content-center">
+            Comment after <a href="{% url 'userprofile:login' %}"> login </a>
+        </h5>
+        <br>
+    {% endif %}
+
+    <!-- show comments -->
+    <div>
+        {% for comment in comments %}
+            <hr>
+            <p>
+                <strong style="color: pink">
+                    {{ comment.user }}
+                </strong> at:
+                <span style="color: green">
+                    {{ comment.created|date:"Y-m-d H:i:s" }}
+                </span> says:
+            </p>
+            <pre style="font-family: inherit; font-size: 1em;">
+                {{ comment.body }}</pre>
+        {% endfor %}
+    </div>
+</div>
     </div>
 </div>
 

@@ -19,6 +19,26 @@
                         <input type="text" class="form-control" id="title" name="title" value="{{ post.title }}">
                     </div>
 
+                    <!-- category -->
+                    <div class="form-group">
+                        <label for="column">cagetory</label>
+                        <select class="form-control" 
+                                id="column" 
+                                name="column"
+                        >
+                                <option value="none">Select</option>
+                            {% for column in columns %}
+                                <option value="{{ column.id }}"
+                                    {% if column.id == post.column.id %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    {{ column }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
                     <div class="form-group">
                         <label for="body"> Post Content </label>
                         <textarea type="text" class="form-control" id="body" name="body" rows="12">{{pody.body}} </textarea>

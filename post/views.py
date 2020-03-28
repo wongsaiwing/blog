@@ -2,10 +2,12 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import PostForm
 from .models import Post
+from .models import PostColumn
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q
+from comment.models import Comment
 import markdown
 # Create your views here.
 
@@ -44,6 +46,7 @@ def post_list(request):
 def post_detail(request, id):
     ## id = Primary Key
     post = Post.objects.get(id=id)
+    comments = Comment.objects.filter(post=id)
     post.total_views += 1
     post.save(update_fields=['total_views'])
 
@@ -55,7 +58,7 @@ def post_detail(request, id):
         'markdown.extensions.toc',
     ])
     post.body = md.convert(post.body)
-    context = { 'post': post, 'toc': md.toc }
+    context = { 'post': post, 'toc': md.toc, 'comments': comments }
     return render(request, 'post/detail.html', context)
 
 @login_required(login_url='/userprofile/login/')
@@ -104,9 +107,21 @@ def post_update(request, id):
             # overwrite the original context
             post.title = request.POST['title']
             post.body = request.POST['body']
+
+            if request.POST['column'] != 'none':
+                post.column = PostColumn.objects.get(id=request.POST['column'])
+            else:
+                post.column = None
+
             post.save()
             return redirect("post:post_detail", id=id)
         else:
+            columns = PostColumn.objects.all()
+            context = { 
+            'post': post, 
+            'post_form': post_form,
+            'columns': columns,
+        }
             return HttpResponse("Invalid content, please edit again")
     else:
         post_form = PostForm()
