@@ -48,14 +48,14 @@ def post_detail(request, id):
     post.save(update_fields=['total_views'])
 
     ## translate markdown to html 
-    post.body = markdown.markdown(post.body, extentions=[
-        # offical Extra Extensions:
-        'markdown.extensions.extra', 
+    md = markdown.Markdown(
+        extensions=[
+        'markdown.extensions.extra',
         'markdown.extensions.codehilite',
-        'markdown.extensions.TOC',
+        'markdown.extensions.toc',
     ])
-
-    context = {'post':post}
+    post.body = md.convert(post.body)
+    context = { 'post': post, 'toc': md.toc }
     return render(request, 'post/detail.html', context)
 
 @login_required(login_url='/userprofile/login/')
