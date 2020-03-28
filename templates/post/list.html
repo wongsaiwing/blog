@@ -53,8 +53,18 @@
     
     <div class="row mt-2">
         {% for post in posts %}
+                <!-- Avatar -->
+            {% if post.avatar %}
+                <div class="col-3">
+                    <img src="{{ post.avatar.url }}" 
+                        alt="avatar" 
+                        style="max-width:100%; border-radius: 20px"
+                    >
+                </div>
+            {% endif %}
+
             <!-- post content -->
-            <div class="col-12">
+            <div class="col">
                 {% if post.column %}
                     <button type="button" 
                         class="btn btn-sm mb-2
@@ -92,8 +102,8 @@
                         </a>
                     </b>
                 </h4>
+                
                 <!-- Summary -->
-
                 <div class="card-body">
                     <p class="card-text">{{ post.body|slice:'50' }}...</p>
                 </div>
@@ -113,6 +123,7 @@
             </p>
             <hr>
         </div>
+        <hr style="width: 100%;"/>
     {% endfor %}
 </div>
 

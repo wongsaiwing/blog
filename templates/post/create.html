@@ -11,9 +11,15 @@
             <div class="col-12">
                 <br>
 
-                <form method="post" action=".">
+                <form method="post" action="." enctype="multipart/form-data">
                     {% csrf_token %}
                     
+                    <!-- Avatar  -->
+                    <div class="form-group">
+                        <label for="avatar"> Avatar: </label>
+                        <input type="file" class="form-control-file" name="avatar" id="avatar">
+                    </div>
+
                     <!-- Tages -->
                     <div class="form-group">
                         <label for="tags">Tags: </label>

@@ -73,7 +73,7 @@ def post_detail(request, id):
 def post_create(request):
     # determine whether the user want to publish a post
     if request.method == "POST":
-        post_form = PostForm(data=request.POST)
+        post_form = PostForm(request.POST, request.FILES)
 
         if post_form.is_valid():
             new_post = post_form.save(commit=False)
