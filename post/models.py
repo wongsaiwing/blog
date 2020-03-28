@@ -2,7 +2,9 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+from taggit.managers import TaggableManager
 # Create your models here.
+
 class PostColumn(models.Model):
 
     title = models.CharField(max_length=100, blank=True)
@@ -20,6 +22,7 @@ class Post(models.Model):
         on_delete=models.CASCADE,
         related_name='post'
     )
+    tags = TaggableManager(blank=True)
     title = models.CharField(max_length = 50)
     body = models.TextField()
 

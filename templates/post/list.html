@@ -13,13 +13,13 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="{% url 'post:post_list' %}?search={{ search }}">
-                    Hot posts
-                </a>
+            <a href="{% url 'post:post_list' %}?search={{ search }}&column={{ column }}&tag={{ tag }}">
+                Latest
+            </a>
             </li>
             <li class="breadcrumb-item">
-                <a href="{% url 'post:post_list' %}?order=total_views&search={{ search }}">
-                    Latest posts
+                <a href="{% url 'post:post_list' %}?order=total_views&search={{ search }}&column={{ column }}&tag={{ tag }}">
+                    Hotest
                 </a>
             </li>
         </ol>
@@ -71,6 +71,17 @@
                     </button>
                 {% endif %}
                 
+                <!-- Tags -->
+                <span>
+                    {% for tag in post.tags.all %}
+                        <a href="{% url 'post:post_list' %}?tag={{ tag }}"
+                        class="badge badge-secondary" 
+                        >
+                            {{ tag }}
+                        </a>
+                    {% endfor %}
+                </span>
+
                 <!-- Title -->
                 <h4>
                     <b>

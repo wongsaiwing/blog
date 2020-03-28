@@ -12,37 +12,45 @@ import markdown
 # Create your views here.
 
 def post_list(request):
+
     search = request.GET.get('search')
     order = request.GET.get('order')
-    # search using Q :
-    if search:
-        if order == 'total_views':
-            
-            post_list = Post.objects.filter(
-                Q(title__icontains=search) |
-                Q(body__icontains=search)
-            ).order_by('-total_views')
-        else:
-            post_list = Post.objects.filter(
-                Q(title__icontains=search) |
-                Q(body__icontains=search)
-            )
-    else:
-        # clear history
-        search = ''
-        if order == 'total_views':
-            post_list = Post.objects.all().order_by('-total_views')
-        else:
-            post_list = Post.objects.all()
+    column = request.GET.get('column')
+    tag = request.GET.get('tag')
 
-    paginator = Paginator(post_list, 6)
+    post_list = Post.objects.all()
+
+    if search:
+        post_list = post_list.filter(
+            Q(title__icontains=search) |
+            Q(body__icontains=search)
+        )
+    else:
+        search = ''
+
+    if tag and tag != 'None':
+        post_list = post_list.filter(tags__name__in=[tag])
+
+    if order == 'total_views':
+        post_list = post_list.order_by('-total_views')
+
+    if column is not None and column.isdigit():
+        post_list = post_list.filter(column=column)
+
+    paginator = Paginator(post_list, 3)
     page = request.GET.get('page')
     posts = paginator.get_page(page)
-    
-    context = { 'posts': posts, 'order': order, 'search': search }
+
+
+    context = {
+        'posts': posts,
+        'order': order,
+        'search': search,
+        'column': column,
+        'tag': tag,
+    }
     
     return render(request, 'post/list.html', context)
-
 def post_detail(request, id):
     ## id = Primary Key
     post = Post.objects.get(id=id)
@@ -54,8 +62,8 @@ def post_detail(request, id):
     md = markdown.Markdown(
         extensions=[
         'markdown.extensions.extra',
-        'markdown.extensions.codehilite',
         'markdown.extensions.toc',
+        'markdown.extensions.codehilite',
     ])
     post.body = md.convert(post.body)
     context = { 'post': post, 'toc': md.toc, 'comments': comments }
@@ -71,6 +79,8 @@ def post_create(request):
             new_post = post_form.save(commit=False)
             new_post.author = User.objects.get(id=request.user.id)
             new_post.save()
+            # many to many relationship
+            post_form.save_m2m()
             return redirect("post:post_list")
         else:
             return HttpResponse("Invalid content, please edit again")
