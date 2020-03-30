@@ -27,7 +27,7 @@ def user_login(request):
     elif request.method == 'GET':
         user_login_form = UserLoginForm()
         context = { 'form': user_login_form }
-        return render(request, 'userprofile/login.html', context)
+        return render(request, 'userprofile/third_login.html', context)
 
     else:
         return HttpResponse("GET or POST")
