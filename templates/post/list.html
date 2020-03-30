@@ -110,15 +110,18 @@
 
                 <!-- Footer -->
                 <p>
-                <!-- extra info. -->
-                <span style="color: green;">
-                    {{ post.total_views }} views&nbsp;&nbsp;&nbsp;
+
+                <span>
+                    <i class="fas fa-eye" style="color: lightskyblue;"></i>
+                    {{ post.total_views }}&nbsp;&nbsp;&nbsp;
                 </span>
-                <span style="color: blue;">
-                    {{ post.created_time|date:'Y-m-d' }} Published &nbsp;&nbsp;&nbsp;
+                <span>
+                    <i class="fas fa-comments" style="color: yellowgreen;"></i>
+                    {{ post.comments.count }}&nbsp;&nbsp;&nbsp;
                 </span>
-                <span style="color: darkred;">
-                    {{ post.update_time|date:'Y-m-d' }} Updated
+                <span>
+                    <i class="fas fa-clock" style="color: pink;"></i>
+                    {{ post.created|date:'Y-m-d' }}
                 </span>
             </p>
             <hr>

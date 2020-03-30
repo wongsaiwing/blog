@@ -25,14 +25,27 @@
                 views: {{ post.total_views }}
             </div>
         </div>
+
         <!-- category -->
-        <div class="col-3 mt-4">
-            <h4><strong> Category </strong></h4>
+        <div class="col-3 mt-4" id="sidebar" class="sidebar">
+            <h4><strong>Category:</strong></h4>
             <hr>
             <div>
                 {{ toc|safe }}
             </div>
         </div>
+
+        <style>
+        .sidebar{
+            will-change: min-height;
+        }
+
+        .sidebar__inner{
+            transform: translate(0, 0);
+            transform: translate3d(0, 0, 0);
+            will-change: position, transform;
+        }
+</style>
     <!-- post content -->
         <div class="col-12">
             <p>{{post.body|safe}}</p>
@@ -110,6 +123,13 @@
 {% endblock content %}
 
 {% block script %}
+<script src="{% static 'sticky_sidebar/jquery.sticky-sidebar.min.js' %}"></script>
+<script type="text/javascript">
+    $('#sidebar').stickySidebar({
+        topSpacing: 20,
+        bottomSpacing: 20,
+    });
+</script>
 <script>
     $(".django-ckeditor-widget").removeAttr('style');
 </script>
