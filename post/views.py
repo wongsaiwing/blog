@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q
 from comment.models import Comment
+from comment.forms import CommentForm
 import markdown
 # Create your views here.
 
@@ -55,6 +56,7 @@ def post_detail(request, id):
     ## id = Primary Key
     post = Post.objects.get(id=id)
     comments = Comment.objects.filter(post=id)
+    comment_form = CommentForm()
     post.total_views += 1
     post.save(update_fields=['total_views'])
 
@@ -66,7 +68,7 @@ def post_detail(request, id):
         'markdown.extensions.codehilite',
     ])
     post.body = md.convert(post.body)
-    context = { 'post': post, 'toc': md.toc, 'comments': comments }
+    context = { 'post': post, 'toc': md.toc, 'comments': comments, 'comment_form': comment_form,}
     return render(request, 'post/detail.html', context)
 
 @login_required(login_url='/userprofile/login/')

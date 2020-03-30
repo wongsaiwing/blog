@@ -6,6 +6,7 @@
 {% endblock title %}
 
 {% block content %}
+
 <!-- post detail -->
 <div class="container">
     <div class="row">
@@ -50,12 +51,12 @@
                             Comments:
                         </strong>
                     </label>
-                    <textarea 
-                        type="text" 
-                        class="form-control" 
-                        id="body" 
-                        name="body" 
-                        rows="2"></textarea>
+
+                    <div>
+                        {{ comment_form.media }}
+                        {{ comment_form.body }}
+                    </div>
+        
                 </div>
                 <!-- submit button-->
                 <button type="submit" class="btn btn-primary "> send </button> <br>                   
@@ -83,7 +84,7 @@
                 </span> says:
             </p>
             <pre style="font-family: inherit; font-size: 1em;">
-                {{ comment.body }}</pre>
+                {{ comment.body|safe }}</pre>
         {% endfor %}
     </div>
 </div>
@@ -107,3 +108,9 @@
 </script> 
 
 {% endblock content %}
+
+{% block script %}
+<script>
+    $(".django-ckeditor-widget").removeAttr('style');
+</script>
+{% endblock script %}

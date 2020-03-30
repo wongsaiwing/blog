@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'post',
     'taggit',
     'comment',
+    'ckeditor',
     'userprofile',
     'password_reset',
     
@@ -105,6 +106,23 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+CKEDITOR_CONFIGS = {
+    'default': {
+        'width':'auto',
+        'height':'250px',
+        'tabSpaces': 4,
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Smiley', 'CodeSnippet'], 
+            ['Bold', 'Italic', 'Underline', 'RemoveFormat', 'Blockquote'],
+            ['TextColor', 'BGColor'],
+            ['Link', 'Unlink'],
+            ['NumberedList', 'BulletedList'],
+            ['Maximize']
+        ],
+        'extraPlugins': ','.join(['codesnippet']),
+    }
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
