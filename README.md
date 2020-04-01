@@ -6,5 +6,5 @@
 * Password_reset, https://docs.djangoproject.com/en/2.1/topics/auth/default/ / https://learndjango.com/tutorials/django-password-reset-tutorial
 * ckeditor, https://github.com/django-ckeditor/django-ckeditor / https://django-ckeditor.readthedocs.io/en/latest/
 ---
-There are more sources but forget the links.
+There are more sources but I forget those links.
 update if found.
